@@ -6,7 +6,7 @@ https://github.com/kyubyong/g2pK
 import re
 
 # This is a list of bound nouns preceded by pure Korean numerals.
-BOUND_NOUNS = "군데 권 개 그루 닢 대 두 마리 모 모금 뭇 발 발짝 방 번 벌 보루 살 수 술 시 쌈 움큼 정 짝 채 척 첩 축 켤레 톨 통"
+BOUND_NOUNS = "가마 갈이 갓 강다리 개 개년 개소 거듬 거리 건 결 고랑 고리 곤 관 괴 군데 권 그루 근 근쭝 길 꼭지 끗 냥 냥쭝 닢 단 달 대 대곡 대괵 돈 돈쭝 돌 동 동무니 되 되지리 두 두락 두름 마 마리 마지기 말 모 모금 목 묘 뭇 바람 바탕 발 발짝 번 복 벌 보루 뼘 살 새 석 섬 섬지기 소곡 소괵 속 손 수 술 승 시 시간 쌈 아름 알 옴큼 우리 움큼 잎 자 장 쟁기 전 점 접 정 제 조짐 줄 줌 질 짐 짝 쪽 채 척 첩 총 축 춤 치 칸통 켤레 쾌 탕 톨 톳 통 파 편 평 평석 푼 푼쭝 필 합 홉".split()
 
 
 def process_num(num, sino=True):
@@ -110,7 +110,11 @@ def convert_num(string):
     tokens = set(re.findall("([\d][\d,]*)([ㄱ-힣]+)/B", string))
     for token in tokens:
         num, bn = token
-        if bn in BOUND_NOUNS:
+        flag = False
+        for bound_none in BOUND_NOUNS:
+            if bn.startswith(bound_none):
+                flag = True
+        if flag:
             spelledout = process_num(num, sino=False)
         else:
             spelledout = process_num(num, sino=True)

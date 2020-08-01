@@ -17,8 +17,10 @@ def convert_eng(string, cmu):
     >>> convert_eng("그 사람 좀 old school이야", cmu)
     그 사람 좀 올드 스쿨이야
     '''
-    eng_words = set(re.findall("[A-Za-z']+", string))
-    for eng_word in eng_words:
+    eng_matches = list(re.finditer("[A-Za-z']+", string))
+    eng_matches.reverse()
+    for eng_match in eng_matches:
+        eng_word = eng_match.group()
         word = eng_word.lower()
         if word not in cmu:
             continue
@@ -142,7 +144,7 @@ def convert_eng(string, cmu):
         ret = reconstruct(ret)
         ret = compose(ret)
         ret = re.sub("[\u1100-\u11FF]", "", ret) # remove hangul jamo
-        string = string.replace(eng_word, ret)
+        string = string[:eng_match.start()] + ret + string[eng_match.end():]
     return string
 
 if __name__ == "__main__":
