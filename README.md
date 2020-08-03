@@ -1,3 +1,7 @@
+이 저장소는 SCE-TTS 프로젝트에서 사용하기 위해 [Kyubyong/g2pK](https://github.com/Kyubyong/g2pK)를 포크하여 수정한 저장소입니다.
+
+---
+
 [![image](https://img.shields.io/pypi/v/g2pk.svg)](https://pypi.org/project/g2pk/)
 [![image](https://img.shields.io/pypi/l/g2pk.svg)](https://pypi.org/project/g2pk/)
 [![image](https://img.shields.io/pypi/pyversions/g2pk.svg)](https://pypi.org/project/g2pk/)
