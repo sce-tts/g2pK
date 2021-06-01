@@ -6,7 +6,6 @@ https://github.com/kyubyong/g2pK
 import os, re
 
 import nltk
-import mecab
 from jamo import h2j
 from nltk.corpus import cmudict
 
@@ -34,12 +33,17 @@ class G2p(object):
         self.idioms_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "idioms.txt")
 
     def get_mecab(self):
-        try:
-            return mecab.MeCab()
-        except Exception as e:
-            raise Exception(
-                'If you want to install mecab, The command is... pip install python-mecab-ko'
-            )
+        if os.name == 'nt':
+            from konlpy.tag import Mecab
+            return Mecab(dicpath=r"C:\mecab\mecab-ko-dic")
+        else:
+            import mecab
+            try:
+                return mecab.MeCab()
+            except Exception as e:
+                raise Exception(
+                    'If you want to install mecab, The command is... pip install python-mecab-ko'
+                )
 
     def idioms(self, string, descriptive=False, verbose=False):
         '''Process each line in `idioms.txt`
